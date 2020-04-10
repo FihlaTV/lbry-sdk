@@ -1917,17 +1917,17 @@ class Daemon(metaclass=JSONRPCServerType):
     """
 
     @requires(STREAM_MANAGER_COMPONENT)
-    async def jsonrpc_file_list(
-            self, sort=None, reverse=False, comparison=None,
-            wallet_id=None, page=None, page_size=None, **kwargs):
+    async def jsonrpc_file_list(self, sort=None, reverse=False, comparison=None, wallet_id=None, page=None,
+                                page_size=None, **kwargs):
         """
         List files limited by optional filters
 
         Usage:
             file_list [--sd_hash=<sd_hash>] [--file_name=<file_name>] [--stream_hash=<stream_hash>]
-                      [--rowid=<rowid>] [--added_on=<added_on>] [--claim_id=<claim_id>]
-                      [--outpoint=<outpoint>] [--txid=<txid>] [--nout=<nout>]
-                      [--channel_claim_id=<channel_claim_id>] [--channel_name=<channel_name>]
+                      [--rowid=<rowid>] [--added_on=<added_on>] [--claim_id=<claim_id>] [--claim_ids=<claim_ids>]
+                      [--outpoint=<outpoint>] [--outpoints=<outpoints>] [--txid=<txid>] [--nout=<nout>]
+                      [--channel_claim_id=<channel_claim_id>] [--channel_claim_ids=<channel_claim_ids>]
+                      [--channel_name=<channel_name>]
                       [--claim_name=<claim_name>] [--blobs_in_stream=<blobs_in_stream>]
                       [--blobs_remaining=<blobs_remaining>] [--sort=<sort_by>]
                       [--comparison=<comparison>] [--full_status=<full_status>] [--reverse]
@@ -1941,16 +1941,19 @@ class Daemon(metaclass=JSONRPCServerType):
             --rowid=<rowid>                        : (int) get file with matching row id
             --added_on=<added_on>                  : (int) get file with matching time of insertion
             --claim_id=<claim_id>                  : (str) get file with matching claim id
+            --claim_ids=<claim_ids>                : (list) get files with a claim id contained in the list
             --outpoint=<outpoint>                  : (str) get file with matching claim outpoint
+            --outpoints=<outpoints>                : (list) get files with a claim outpoint contained in the list
             --txid=<txid>                          : (str) get file with matching claim txid
             --nout=<nout>                          : (int) get file with matching claim nout
             --channel_claim_id=<channel_claim_id>  : (str) get file with matching channel claim id
+            --channel_claim_ids=<channel_claim_ids>: (list) get files with a channel claim id contained in the list
             --channel_name=<channel_name>          : (str) get file with matching channel name
             --claim_name=<claim_name>              : (str) get file with matching claim name
             --blobs_in_stream<blobs_in_stream>     : (int) get file with matching blobs in stream
             --blobs_remaining=<blobs_remaining>    : (int) amount of remaining blobs to download
             --sort=<sort_by>                       : (str) field to sort by (one of the above filter fields)
-            --comparison=<comparison>              : (str) logical comparison, (eq | ne | g | ge | l | le)
+            --comparison=<comparison>              : (str) logical comparison, (eq | ne | g | ge | l | le | in)
             --page=<page>                          : (int) page to return during paginating
             --page_size=<page_size>                : (int) number of items on page during pagination
             --wallet_id=<wallet_id>                : (str) add purchase receipts from this wallet
